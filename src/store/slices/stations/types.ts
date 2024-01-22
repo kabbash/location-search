@@ -1,11 +1,7 @@
-export interface StationsState {
-    stationsList: StationList[];
-  }
-
-export interface StationList {
-    name: string;
-    lat: number;
-    long: number;
+export interface SearchOptions {
+  title: string;
+  value: {lng: number, lat: number}
 }
-
-export interface CounterState {}
+export interface StationsState {
+    searchOptions: SearchOptions[]
+  }

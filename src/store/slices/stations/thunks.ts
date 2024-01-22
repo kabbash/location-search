@@ -1,18 +1,19 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../../store';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import {getStationLocations} from '../../../api/stations'
-import {StationList} from './types'
+import {SearchOptions} from './types'
 
 
 export const getStationsThunk = createAsyncThunk(
     'stations/fetch',
-    async (_, thunkAPI): Promise<StationList[]> => {
+    async (_, thunkAPI): Promise<SearchOptions[]> => {
       const response = await getStationLocations();
       // The value we return becomes the `fulfilled` action payload
       return response.map(item => ({
-        name: item.properties.name,
-        lat: item.geometry.coordinates[0],
-        long: item.geometry.coordinates[1]
+        title: item.properties.name,
+        value: {
+          lat: item.geometry.coordinates[1],
+          lng: item.geometry.coordinates[0]
+        }
       }));
     }
   );
